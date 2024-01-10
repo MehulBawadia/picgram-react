@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RegisterFormValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 const Register = () => {
     // 1. Define your form.
@@ -28,10 +29,9 @@ const Register = () => {
     });
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof RegisterFormValidation>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values);
+    async function onSubmit(values: z.infer<typeof RegisterFormValidation>) {
+        const newUser = await createUserAccount(values);
+        console.log(newUser);
     }
 
     const isLoading = false;
