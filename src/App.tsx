@@ -4,6 +4,7 @@ import Login from "./_auth/forms/Login";
 import Register from "./_auth/forms/Register";
 import RootLayout from "./_root/RootLayout";
 import { Home } from "./_root/pages";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const App = () => {
@@ -21,6 +22,8 @@ const App = () => {
                     <Route index element={<Home />} />
                 </Route>
             </Routes>
+
+            <Toaster />
         </main>
     );
 };
