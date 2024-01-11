@@ -92,3 +92,13 @@ export async function getCurrentUser() {
         console.log(error);
     }
 }
+
+export async function logoutUser() {
+    try {
+        const session = await account.deleteSession("current");
+        localStorage.removeItem("sessionId");
+        return session;
+    } catch (error) {
+        console.log(error);
+    }
+}
