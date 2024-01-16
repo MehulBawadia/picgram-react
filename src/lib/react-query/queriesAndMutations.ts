@@ -192,8 +192,8 @@ export const useGetPosts = () => {
 
 export const useSearchPosts = (searchTerm: string) => {
     return useQuery({
-        queryKey: [QUERY_KEYS.SEARCH_POSTS],
-        queryFn: (searchTerm) => searchPosts(searchTerm),
+        queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
+        queryFn: () => searchPosts(searchTerm),
         enabled: !!searchTerm,
     });
 };
