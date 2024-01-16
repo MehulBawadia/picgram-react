@@ -10,12 +10,14 @@ import {
     deletePost,
     deleteSavedPost,
     getCurrentUser,
+    getInfinitePosts,
     getPostById,
     getRecentPosts,
     likePost,
     loginUser,
     logoutUser,
     savePost,
+    searchPosts,
     updatePost,
 } from "@/lib/appwrite/api";
 import { INewPost, INewUser, IUpdatePost } from "@/types";
@@ -171,5 +173,27 @@ export const useDeletePost = () => {
                 queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
             });
         },
+    });
+};
+
+export const useGetPosts = () => {
+    return useInfiniteQuery({
+        queryKey: [QUERY_KEYS.GET_INIFINITE_POSTS],
+        queryFn: getInfinitePosts,
+        getNextPageParam: (lastPage) => {
+            if (lastPage && lastPage.documents.length === 0) return null;
+
+            const lastId =
+                lastPage.documents[lastPage?.documents.length - 1].$id;
+            return lastId;
+        },
+    });
+};
+
+export const useSearchPosts = (searchTerm: string) => {
+    return useQuery({
+        queryKey: [QUERY_KEYS.SEARCH_POSTS],
+        queryFn: (searchTerm) => searchPosts(searchTerm),
+        enabled: !!searchTerm,
     });
 };
